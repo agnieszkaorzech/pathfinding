@@ -5,7 +5,7 @@ import getMuiTheme from "material-ui/styles/getMuiTheme";
 import {colors as Colors} from "material-ui/styles";
 import ButtonSearchPath from "../components/Button/Button";
 import findPath from "../services/path-finder";
-import Grid from "../lib/components/Grid";
+import Grid from "../lib/components/grid";
 import injectTapEventPlugin from "react-tap-event-plugin";
 injectTapEventPlugin();
 

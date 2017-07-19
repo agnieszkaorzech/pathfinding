@@ -5,7 +5,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { PathLine } from 'react-svg-pathline';
 import styled from 'styled-components';
-import Cell from './Cell';
+import Cell from './cell';
 import { init } from '../state';
 
 const Container = styled.div`
