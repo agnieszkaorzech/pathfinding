@@ -4,7 +4,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 
 const ButtonSearchPath = ({ onSearch }) =>(
     <div className="buttonSearch">
-        <RaisedButton onClick={onSearch} label="Search path" primary={true}/>
+        <RaisedButton onClick={onSearch} label="Search path" secondary={true}/>
     </div>
 );
 ButtonSearchPath.propTypes = {

@@ -5,20 +5,20 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { PathLine } from 'react-svg-pathline';
 import styled from 'styled-components';
-import Cell from './cell';
+import Cell from './Cell';
 import { init } from '../state';
 
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
 `;
 
 const Row = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;
+  justify-content: space-around;
   align-items: flex-start;
   position: relative;
 `;

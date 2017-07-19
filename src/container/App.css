@@ -1,3 +1,81 @@
 .App {
-  text-align: center;
+  --padsize: 50;
+  position: absolute;
+  bottom: 0;
+  top: 0;
+  left: 0;
+  right: 0;
+  /*background: repeating-linear-gradient(135deg, #2e8f7a 0%, #2e8f7a 15%, #4ba491 15%, #4ba491 30%, #8accc0 30%, #8accc0 45%, #9cd3ca 45%, #9cd3ca 50%);*/
+  padding: calc(var(--padsize) * 1px);;
+}
+
+.app-frame {
+  width: 100%;
+  height: 100%;
+  box-shadow: rgba(0, 0, 0, 0.11) 0 0 20px 10px;
+  display: flex;
+}
+
+.glass {
+  position: relative;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.glass-before {
+  position: absolute;
+  top: calc(var(--padsize) * -1px);
+  right: calc(var(--padsize) * -1px);
+  bottom: calc(var(--padsize) * -1px);
+  left: calc(var(--padsize) * -1px);
+  content: ' ';
+  /*background: repeating-linear-gradient(135deg, #2e8f7a 0%, #2e8f7a 15%, #4ba491 15%, #4ba491 30%, #8accc0 30%, #8accc0 45%, #9cd3ca 45%, #9cd3ca 50%);*/
+  filter: blur(30px);
+  z-index: -1;
+}
+
+.blur-layer {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.blur-background {
+  position: absolute;
+  top: -50px;
+  right: -50px;
+  bottom: -50px;
+  left: -50px;
+
+  background: linear-gradient(135deg, #2e8f7a 15%, #4ba491 15%, #4ba491 30%, #8accc0 30%, #8accc0 45%, #9cd3ca 45%, #9cd3ca 50%, #2e8f7a 50%);
+  filter: blur(20px);
+}
+
+.app-content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+
+  box-shadow: rgba(0, 0, 0, 0.11) 0 0 20px 10px;
+  background-color: rgba(235, 248, 246, 0.15);
+
+  display: flex;
+}
+
+.left-panel {
+  flex: 0 0 auto;
+  width: 350px;
+  transition: all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms;
+  background-color: rgba(235, 248, 246, 0.15);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.right_panel{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
