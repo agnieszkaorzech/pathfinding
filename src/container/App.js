@@ -8,6 +8,7 @@ import Card from "../components/Card/Card";
 import findPath from "../services/path-finder";
 import Grid from "../lib/components/grid";
 import injectTapEventPlugin from "react-tap-event-plugin";
+import {clear} from "../lib/state/index";
 injectTapEventPlugin();
 
 
@@ -78,6 +79,7 @@ class App extends Component {
 
     onClear() {
         this.setState({obstacles: []});
+        clear();
     }
 
     onSearch() {

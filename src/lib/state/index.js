@@ -26,7 +26,9 @@ export function update({ x, y, type, previousType }) {
     }
     grid.onUpdate({ ...grid });
 }
-
+export function clear() {
+    grid.obstacles = [];
+}
 export function init({ start, end, obstacles, onGridUpdate }) {
     grid.start = { ...start };
     grid.end = { ...end };
