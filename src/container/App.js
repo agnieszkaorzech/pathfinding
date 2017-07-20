@@ -4,6 +4,7 @@ import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
 import {colors as Colors} from "material-ui/styles";
 import ButtonSearchPath from "../components/Button/Button";
+import Card from "../components/Card/Card";
 import findPath from "../services/path-finder";
 import Grid from "../lib/components/grid";
 import injectTapEventPlugin from "react-tap-event-plugin";
@@ -36,6 +37,7 @@ class App extends Component {
     constructor(props) {
         super(props);
         this.onSearch = this.onSearch.bind(this);
+        this.onClear = this.onClear.bind(this);
         this.onGridUpdate = this.onGridUpdate.bind(this);
         const width = 30;
         const height = 20;
@@ -74,6 +76,10 @@ class App extends Component {
         this.setState({obstacles, start, end});
     }
 
+    onClear() {
+        this.setState({obstacles: []});
+    }
+
     onSearch() {
         const path = findPath({
             grid: {
@@ -91,7 +97,7 @@ class App extends Component {
 
     render() {
         let gradientStyle = {
-            background: this.generateGradientForColorScheme('135deg', 'cyan')
+            background: this.generateGradientForColorScheme('135deg', 'blue')
         };
         return (
             <MuiThemeProvider muiTheme={getMuiTheme(muiTheme)}>
@@ -99,7 +105,9 @@ class App extends Component {
                     <div className="app-frame glass">
                         <div className="glass-before" style={gradientStyle}/>
                         <div className="left-panel">
-                            <ButtonSearchPath onSearch={this.onSearch}/>
+                            <Card/>
+                            <ButtonSearchPath onSearch={this.onSearch} label="SEARCH PATH"/>
+                            <ButtonSearchPath onSearch={this.onClear} label="CLEAR BARRIER"/>
                         </div>
                         <div className="right_panel">
                             <div>

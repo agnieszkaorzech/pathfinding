@@ -1,14 +1,14 @@
-import * as React from 'react';
-import PropTypes from 'prop-types';
-import RaisedButton from 'material-ui/RaisedButton';
+import * as React from "react";
+import PropTypes from "prop-types";
+import RaisedButton from "material-ui/RaisedButton";
 
-const ButtonSearchPath = ({ onSearch }) =>(
-    <div className="buttonSearch">
-        <RaisedButton onClick={onSearch} label="Search path" secondary={true}/>
+const ButtonSearchPath = ({onSearch, label}) => (
+    <div className="buttonSearch" style={{alignSelf: 'center', padding: '20px 0 5px 0'}}>
+        <RaisedButton style={{width: '200px'}} onClick={onSearch} label={label} secondary={true}/>
     </div>
 );
 ButtonSearchPath.propTypes = {
-    onSearch : PropTypes.func.isRequired,
+    onSearch: PropTypes.func.isRequired,
 };
 
 export default ButtonSearchPath;

@@ -5,11 +5,12 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { update } from '../state';
+import {colors as Colors} from "material-ui/styles";
 
 const colorMap = {
-    START : 'rgb(78, 172, 72)',
-    TARGET : 'rgb(226, 50, 45)',
-    OBSTACLE : 'rgb(89, 118, 131)',
+    START :  Colors.greenA700,
+    TARGET : Colors.redA700,
+    OBSTACLE : Colors.indigo800,
     EMPTY : 'transparent',
 };
 
