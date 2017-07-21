@@ -5,6 +5,7 @@ import getMuiTheme from "material-ui/styles/getMuiTheme";
 import {colors as Colors} from "material-ui/styles";
 import ButtonSearchPath from "../components/Button/Button";
 import Card from "../components/Card/Card";
+import TextArea from "../components/TextArea/TextArea";
 import findPath from "../services/path-finder";
 import Grid from "../lib/components/grid";
 import injectTapEventPlugin from "react-tap-event-plugin";
@@ -40,6 +41,8 @@ class App extends Component {
         this.onSearch = this.onSearch.bind(this);
         this.onClear = this.onClear.bind(this);
         this.onGridUpdate = this.onGridUpdate.bind(this);
+        this.onChangeDimensionWidth = this.onChangeDimensionWidth.bind(this);
+        this.onChangeDimensionHeight = this.onChangeDimensionHeight.bind(this);
         const width = 30;
         const height = 20;
         this.state = {
@@ -82,6 +85,14 @@ class App extends Component {
         clear();
     }
 
+    onChangeDimensionWidth(e) {
+        this.setState({width: parseInt(e.target.value)});
+    }
+
+    onChangeDimensionHeight(e) {
+        this.setState({height: parseInt(e.target.value)});
+    }
+
     onSearch() {
         const path = findPath({
             grid: {
@@ -110,6 +121,10 @@ class App extends Component {
                             <Card/>
                             <ButtonSearchPath onSearch={this.onSearch} label="SEARCH PATH"/>
                             <ButtonSearchPath onSearch={this.onClear} label="CLEAR BARRIER"/>
+                            <TextArea onChange={this.onChangeDimensionWidth} value={this.state.width}
+                                      floatingLabelText="Width Grid"/>
+                            <TextArea onChange={this.onChangeDimensionHeight} value={this.state.height}
+                                      floatingLabelText="Height Grid"/>
                         </div>
                         <div className="right_panel">
                             <div>

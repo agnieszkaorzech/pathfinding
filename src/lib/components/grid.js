@@ -206,7 +206,7 @@ Grid.propTypes = {
 export default Grid;
 
 function getPathGrid({ waypoints, height, width }) {
-    const emptyGrid = new Array(height).fill().map(() => new Array(width).fill(0));
+    const emptyGrid = new Array(height||20).fill().map(() => new Array(width||30).fill(0));
     return waypoints.reduce((grid, waypoint, index) => {
         const next = waypoints[index + 1];
         const xStart = waypoint[0];
