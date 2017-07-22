@@ -1,7 +1,7 @@
 /**
  * Created by Agnieszka on 16.07.2017.
  */
-import pathFinding from 'pathfinding';
+import pathFinding from "pathfinding";
 
 
 export default request => {
@@ -9,13 +9,13 @@ export default request => {
     const GRID_HEIGHT = (request.grid || {}).height || 50;
     // Start point
     const start = request.start || {
-            x : 0,
-            y : 0,
+            x: 0,
+            y: 0,
         };
     // Target point
     const end = request.end || {
-            x : 30,
-            y : 17,
+            x: 30,
+            y: 17,
         };
     // Obstacles indexed by row then column
     const obstacles = (request.obstacles || []).reduce((map, item) => {
@@ -26,18 +26,18 @@ export default request => {
     }, new Array(GRID_HEIGHT).fill().map(() => new Array(GRID_WIDTH).fill(false)));
     // Generate path
     return getPath({
-        grid : getGrid({ width : GRID_WIDTH, height : GRID_HEIGHT, obstacles }),
-        startPoint : start,
-        endPoint : end,
+        grid: getGrid({width: GRID_WIDTH, height: GRID_HEIGHT, obstacles}),
+        startPoint: start,
+        endPoint: end,
     });
 };
 
 // Get optimal path
-function getPath({ grid, startPoint, endPoint }) {
+function getPath({grid, startPoint, endPoint}) {
     // Path finder
     const finder = new pathFinding.AStarFinder({
-        diagonalMovement : pathFinding.DiagonalMovement.Never,
-        weight : 2,
+        diagonalMovement: pathFinding.DiagonalMovement.Never,
+        weight: 2,
     });
     // Setup grid
     const pfGrid = new pathFinding.Grid(grid);
@@ -48,7 +48,7 @@ function getPath({ grid, startPoint, endPoint }) {
 }
 
 // Generate grid with obstacles
-function getGrid({ width, height, obstacles }) {
+function getGrid({width, height, obstacles}) {
     const grid = [];
     for (let y = 0; y < height; y++) {
         const row = [];

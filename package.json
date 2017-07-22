@@ -14,6 +14,8 @@
     "eject": "react-scripts eject"
   },
   "devDependencies": {
+    "eslint": "^4.3.0",
+    "eslint-plugin-react-app": "^1.0.2",
     "material-ui": "^0.18.6",
     "pathfinding": "^0.4.18",
     "prop-types": "^15.5.10",

@@ -1,12 +1,12 @@
 /**
  * Created by Agnieszka on 16.07.2017.
  */
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import { PathLine } from 'react-svg-pathline';
-import styled from 'styled-components';
-import Cell from './cell';
-import { init } from '../state';
+import React, {Component} from "react";
+import PropTypes from "prop-types";
+import {PathLine} from "react-svg-pathline";
+import styled from "styled-components";
+import Cell from "./cell";
+import {init} from "../state";
 
 const Container = styled.div`
   display: flex;
@@ -35,33 +35,36 @@ class Grid extends Component {
         this.onMouseDown = this.onMouseDown.bind(this);
         this.onMouseUp = this.onMouseUp.bind(this);
         this.state = {
-            dragType : '',
+            dragType: '',
         };
         if (!props.disabled) {
             init({
-                start : this.props.start,
-                end : this.props.end,
-                obstacles : this.props.obstacles,
-                onGridUpdate : this.props.onGridUpdate,
+                start: this.props.start,
+                end: this.props.end,
+                obstacles: this.props.obstacles,
+                onGridUpdate: this.props.onGridUpdate,
             });
         }
     }
+
     onMouseDown(type) {
         if (this.props.disabled) {
             return;
         }
         this.setState({
-            dragType : type,
+            dragType: type,
         });
     }
+
     onMouseUp() {
         if (this.props.disabled) {
             return;
         }
         this.setState({
-            dragType : '',
+            dragType: '',
         });
     }
+
     render() {
         const {
             height,
@@ -78,16 +81,16 @@ class Grid extends Component {
             const row = [];
             for (let j = 0; j < width; j++) {
                 row.push({
-                    x : j,
-                    y : i,
+                    x: j,
+                    y: i,
                 });
             }
             rows.push(row);
         }
-        const pathGrid = getPathGrid({ waypoints, width, height });
+        const pathGrid = getPathGrid({waypoints, width, height});
         const path = waypoints.map(([x, y]) => ({
-            x : x * cellSize + cellSize / 2,
-            y : (height - y - 1) * cellSize + cellSize / 2,
+            x: x * cellSize + cellSize / 2,
+            y: (height - y - 1) * cellSize + cellSize / 2,
         }));
         return (
             <Container>
@@ -139,7 +142,7 @@ class Grid extends Component {
                                     />
                                 );
                             }
-                            if (obstacles.some(({ x, y }) => coords.x === x && coordsY === y)) {
+                            if (obstacles.some(({x, y}) => coords.x === x && coordsY === y)) {
                                 return (
                                     <Cell
                                         key={`${coords.y}/${coords.x}`}
@@ -177,36 +180,36 @@ class Grid extends Component {
 }
 
 Grid.defaultProps = {
-    path : [],
+    path: [],
 };
 
 Grid.propTypes = {
-    width : PropTypes.number.isRequired,
-    height : PropTypes.number.isRequired,
-    path : PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
-    start : PropTypes.shape({
-        x : PropTypes.number.isRequired,
-        y : PropTypes.number.isRequired,
+    width: PropTypes.number.isRequired,
+    height: PropTypes.number.isRequired,
+    path: PropTypes.arrayOf(PropTypes.arrayOf(PropTypes.number)),
+    start: PropTypes.shape({
+        x: PropTypes.number.isRequired,
+        y: PropTypes.number.isRequired,
     }).isRequired,
-    end : PropTypes.shape({
-        x : PropTypes.number.isRequired,
-        y : PropTypes.number.isRequired,
+    end: PropTypes.shape({
+        x: PropTypes.number.isRequired,
+        y: PropTypes.number.isRequired,
     }).isRequired,
-    obstacles : PropTypes.arrayOf(
+    obstacles: PropTypes.arrayOf(
         PropTypes.shape({
-            x : PropTypes.number.isRequired,
-            y : PropTypes.number.isRequired,
+            x: PropTypes.number.isRequired,
+            y: PropTypes.number.isRequired,
         })
     ).isRequired,
-    cellSize : PropTypes.number,
-    onGridUpdate : PropTypes.func,
-    disabled : PropTypes.bool,
+    cellSize: PropTypes.number,
+    onGridUpdate: PropTypes.func,
+    disabled: PropTypes.bool,
 };
 
 export default Grid;
 
-function getPathGrid({ waypoints, height, width }) {
-    const emptyGrid = new Array(height||20).fill().map(() => new Array(width||30).fill(0));
+function getPathGrid({waypoints, height, width}) {
+    const emptyGrid = new Array(height || 20).fill().map(() => new Array(width || 30).fill(0));
     return waypoints.reduce((grid, waypoint, index) => {
         const next = waypoints[index + 1];
         const xStart = waypoint[0];

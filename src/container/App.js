@@ -86,11 +86,11 @@ class App extends Component {
     }
 
     onChangeDimensionWidth(e) {
-        this.setState({width: parseInt(e.target.value)});
+        this.setState({width: parseInt(e.target.value, 10)});
     }
 
     onChangeDimensionHeight(e) {
-        this.setState({height: parseInt(e.target.value)});
+        this.setState({height: parseInt(e.target.value, 10)});
     }
 
     onSearch() {

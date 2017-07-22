@@ -22,7 +22,10 @@ const CardExampleExpandable = () => (
                 <ListItem primaryText="Dark blue - barrier" leftIcon={<CellIcon color={Colors.indigo800}/>}/>
             </List>
             <p>Click on the grid map to create barrier, then use "SEARCH PATH"
-                button to find the shortest path between two cells.</p>
+                button to find the shortest path between two cells.
+                If you want to change position START and END cells,
+                push target and drag to another place.
+            </p>
         </CardText>
     </Card>
 );
