@@ -1,17 +1,19 @@
-import React, {Component} from "react";
-import "./App.css";
+import React, { Component } from "react";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import getMuiTheme from "material-ui/styles/getMuiTheme";
-import {colors as Colors} from "material-ui/styles";
-import ButtonSearchPath from "../components/Button/Button";
-import Card from "../components/Card/Card";
-import TextArea from "../components/TextArea/TextArea";
-import findPath from "../services/path-finder";
-import Grid from "../lib/components/grid";
 import injectTapEventPlugin from "react-tap-event-plugin";
-import {clear} from "../lib/state/index";
-injectTapEventPlugin();
+import { colors as Colors } from "material-ui/styles";
 
+import findPath from "../services/path-finder";
+
+import ButtonSearchPath from "./Button";
+import Card from "./Card";
+import TextArea from "./TextArea";
+import Grid from "../containers/Grid";
+
+import "./App.css";
+
+injectTapEventPlugin();
 
 const muiTheme = getMuiTheme({
     palette: {
@@ -40,24 +42,36 @@ class App extends Component {
         super(props);
         this.onSearch = this.onSearch.bind(this);
         this.onClear = this.onClear.bind(this);
-        this.onGridUpdate = this.onGridUpdate.bind(this);
         this.onChangeDimensionWidth = this.onChangeDimensionWidth.bind(this);
         this.onChangeDimensionHeight = this.onChangeDimensionHeight.bind(this);
+
         const width = 30;
         const height = 20;
+
         this.state = {
             path: [],
-            obstacles: [],
-            start: {
-                x: 0,
-                y: Math.round(height / 2),
-            },
-            end: {
-                x: width - 1,
-                y: Math.round(height / 2),
-            },
             width,
             height,
+        };
+
+        const start = this.getStart();
+        const end = this.getEnd();
+
+        props.setStart(start);
+        props.setEnd(end);
+    }
+
+    getStart(width = this.state.width, height = this.state.height) {
+        return {
+            x: 0,
+            y: Math.round(height / 2),
+        };
+    }
+
+    getEnd(width = this.state.width, height = this.state.height) {
+        return {
+            x: width - 1,
+            y: Math.round(height / 2),
         };
     }
 
@@ -76,32 +90,44 @@ class App extends Component {
         return this.generateGradient(angle, ...gradientColors);
     }
 
-    onGridUpdate({obstacles, start, end}) {
-        this.setState({obstacles, start, end});
-    }
-
     onClear() {
-        this.setState({obstacles: []});
-        clear();
+        this.props.clearObstacles();
     }
 
     onChangeDimensionWidth(e) {
-        this.setState({width: parseInt(e.target.value, 10)});
+        const width = parseInt(e.target.value, 10);
+
+        this.setState({ width });
+
+        this.props.setStart(this.getStart(width));
+        this.props.setEnd(this.getEnd(width));
     }
 
     onChangeDimensionHeight(e) {
-        this.setState({height: parseInt(e.target.value, 10)});
+        const width = this.state.width;
+        const height = parseInt(e.target.value, 10);
+
+        this.setState({ height });
+
+        this.props.setStart(this.getStart(width, height));
+        this.props.setEnd(this.getEnd(width, height));
     }
 
     onSearch() {
+        const {
+            obstacles,
+            start,
+            end,
+        } = this.props;
+
         const path = findPath({
             grid: {
                 width: this.state.width,
                 height: this.state.height,
             },
-            start: this.state.start,
-            end: this.state.end,
-            obstacles: this.state.obstacles,
+            start,
+            end,
+            obstacles,
             timeStep: this.state.timeStep,
             maxTime: this.state.maxTime,
         });
@@ -120,7 +146,7 @@ class App extends Component {
                         <div className="left-panel">
                             <Card/>
                             <ButtonSearchPath onSearch={this.onSearch} label="SEARCH PATH"/>
-                            <ButtonSearchPath onSearch={this.onClear} label="CLEAR BARRIER"/>
+                            <ButtonSearchPath onSearch={this.onClear} label="CLEAR OBSTACLES"/>
                             <TextArea onChange={this.onChangeDimensionWidth} value={this.state.width}
                                       floatingLabelText="Width Grid"/>
                             <TextArea onChange={this.onChangeDimensionHeight} value={this.state.height}
@@ -129,13 +155,9 @@ class App extends Component {
                         <div className="right_panel">
                             <div>
                                 <Grid
-                                    obstacles={this.state.obstacles}
-                                    start={this.state.start}
-                                    end={this.state.end}
                                     width={this.state.width}
                                     height={this.state.height}
                                     path={this.state.path}
-                                    onGridUpdate={this.onGridUpdate}
                                 />
                             </div>
                         </div>

@@ -1,32 +1,33 @@
 /**
  * Created by Agnieszka on 16.07.2017.
  */
-import React, {Component} from "react";
+import React, { Component } from "react";
 import PropTypes from "prop-types";
-import {PathLine} from "react-svg-pathline";
+import { PathLine } from "react-svg-pathline";
+
 import styled from "styled-components";
-import Cell from "./cell";
-import {init} from "../state";
+
+import Cell from "../containers/Grid/Cell";
 
 const Container = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 `;
 
 const Row = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: flex-start;
-  position: relative;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: flex-start;
+    position: relative;
 `;
 
 const Path = styled.svg`
-  position: absolute;
-  width: ${props => props.computedWidth}px;
-  height: ${props => props.computedHeight}px;
+    position: absolute;
+    width: ${props => props.computedWidth}px;
+    height: ${props => props.computedHeight}px;
 `;
 
 class Grid extends Component {
@@ -37,14 +38,6 @@ class Grid extends Component {
         this.state = {
             dragType: '',
         };
-        if (!props.disabled) {
-            init({
-                start: this.props.start,
-                end: this.props.end,
-                obstacles: this.props.obstacles,
-                onGridUpdate: this.props.onGridUpdate,
-            });
-        }
     }
 
     onMouseDown(type) {
@@ -76,6 +69,7 @@ class Grid extends Component {
             cellSize = 25,
             disabled,
         } = this.props;
+
         const rows = [];
         for (let i = 0; i < height; i++) {
             const row = [];
@@ -87,24 +81,27 @@ class Grid extends Component {
             }
             rows.push(row);
         }
+
         const pathGrid = getPathGrid({waypoints, width, height});
         const path = waypoints.map(([x, y]) => ({
             x: x * cellSize + cellSize / 2,
             y: (height - y - 1) * cellSize + cellSize / 2,
         }));
+
         return (
             <Container>
-                {waypoints.length
-                    ? <Path computedWidth={width * cellSize} computedHeight={height * cellSize}>
-                    <PathLine
-                        points={path}
-                        stroke="rgb(253, 237, 53)"
-                        strokeWidth="3"
-                        fill="none"
-                        r={10}
-                    />
-                </Path>
-                    : null}
+                {waypoints.length ?
+                    <Path computedWidth={width * cellSize} computedHeight={height * cellSize}>
+                        <PathLine
+                            points={path}
+                            stroke="rgb(253, 237, 53)"
+                            strokeWidth="3"
+                            fill="none"
+                            r={10}
+                        />
+                    </Path> :
+                    null
+                }
                 {rows.map((row, index) =>
                     // eslint-disable-next-line react/no-array-index-key
                     <Row key={index}>
