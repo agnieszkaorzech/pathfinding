@@ -14,7 +14,4 @@ const mapStateToProps = state => {
     });
 };
 
-const mapDispatchToProps = {
-};
-
-export default connect(mapStateToProps, mapDispatchToProps)(Grid);
+export default connect(mapStateToProps)(Grid);

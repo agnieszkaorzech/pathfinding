@@ -8,10 +8,10 @@ import {
 import { findAll, findOne } from '../selectors/tiles';
 
 // Create an array of arrays, 30x20. We can access a given cell by calling cell[x][y].
-const defaultstate = [];
+const defaultState = [];
 
-export default (state = defaultstate, action) => {
-    switch(action.type) {
+export default (state = defaultState, action) => {
+    switch (action.type) {
     case TILES_CLEAR_OBSTACLES: {
         const nextState = [...state];
 
